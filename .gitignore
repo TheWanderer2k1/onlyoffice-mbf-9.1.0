@@ -4,6 +4,7 @@
 # But not these directories
 !/web-apps/
 !/server/
+!/build_tools/
 
 # Allow .gitignore itself
 !.gitignore
