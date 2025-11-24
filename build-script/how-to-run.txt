@@ -1,0 +1,44 @@
+1. chuẩn bị:
+cd ~
+git clone https://github.com/TheWanderer2k1/onlyoffice-mbf-9.1.0.git
+cd onlyoffice-mbf-9.1.0
+git checkout -b feature/redis
+git pull
+git clone https://github.com/ONLYOFFICE/core.git
+git clone https://github.com/ONLYOFFICE/sdkjs.git
+git clone https://github.com/ONLYOFFICE/web-apps.git
+git clone https://github.com/ONLYOFFICE/dictionaries.git
+cp deb_build và package_builder-custom.sh vào ~/onlyoffice-mbf-9.1.0
+chmod u+x -R ~/onlyoffice-mbf-9.1.0
+
+2. chạy container
+
+./package-builder-custom.sh --product-version=9.1.0 --build-number=31 --unlimited-organization=btactic-oo --tag-suffix=-btactic --debian-package-suffix=-btactic
+
+nếu lỗi thì chạy từng lệnh:
+
+cd build_tools
+mkdir /root/onlyoffice-mbf-9.1.0/build_tools/out
+docker build --tag onlyoffice-document-editors-builder .
+
+docker run -d --name onlyoffice-document-editors-builder -e PRODUCT_VERSION=9.1.0 -e BUILD_NUMBER=31 -e NODE_ENV='production' -v /root/onlyoffice-mbf-9.1.0/build_tools/out:/build_tools/out -v /root/onlyoffice-mbf-9.1.0/core:/core -v /root/onlyoffice-mbf-9.1.0/sdkjs:/sdkjs -v /root/onlyoffice-mbf-9.1.0/server:/server -v /root/onlyoffice-mbf-9.1.0/web-apps:/web-apps onlyoffice-document-editors-builder sleep infinity
+
+docker exec -it onlyoffice-document-editors-builder /bin/bash -c '\
+    cd tools/linux && \
+    python3 ./automate.py --branch=tags/v9.1.0.31 --update=0 --module="builder server"'
+
+cd deb_build
+docker build --tag onlyoffice-deb-builder . -f Dockerfile-manual-debian-11
+
+docker run -d --name onlyoffice-deb-builder \
+      --env PRODUCT_VERSION=9.1.0 \
+      --env BUILD_NUMBER=31 \
+      --env TAG_SUFFIX=-btactic \
+      --env UNLIMITED_ORGANIZATION=btactic-oo \
+      --env DEBIAN_PACKAGE_SUFFIX=-btactic \
+      -v /root/onlyoffice-mbf-9.1.0/deb_build:/usr/local/unlimited-onlyoffice-package-builder:ro \
+      -v /root/onlyoffice-mbf-9.1.0/deb_build:/root:rw \
+      -v /root/onlyoffice-mbf-9.1.0/build_tools:/root/build_tools:ro \
+      onlyoffice-deb-builder sleep infinity
+    
+docker exec -it onlyoffice-deb-builder /bin/bash -c "/usr/local/unlimited-onlyoffice-package-builder/onlyoffice-deb-builder.sh --product-version=9.1.0 --build-number=31 --tag-suffix=-btactic --unlimited-organization=btactic-oo --debian-package-suffix=-btactic"
