@@ -2,7 +2,6 @@
 cd ~
 git clone https://github.com/TheWanderer2k1/onlyoffice-mbf-9.1.0.git
 cd onlyoffice-mbf-9.1.0
-git checkout -b feature/redis
 git pull
 git clone https://github.com/ONLYOFFICE/core.git
 git clone https://github.com/ONLYOFFICE/sdkjs.git
