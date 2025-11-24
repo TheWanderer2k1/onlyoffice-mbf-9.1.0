@@ -1,9 +1,1 @@
-# Ignore everything
-/*
 
-# But not these directories
-!/web-apps/
-!/server/
-
-# Allow .gitignore itself
-!.gitignore
