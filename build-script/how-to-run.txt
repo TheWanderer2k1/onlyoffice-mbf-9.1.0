@@ -8,6 +8,7 @@ git clone https://github.com/ONLYOFFICE/core.git
 git clone https://github.com/ONLYOFFICE/sdkjs.git
 git clone https://github.com/ONLYOFFICE/web-apps.git
 git clone https://github.com/ONLYOFFICE/dictionaries.git
+git clone https://github.com/ONLYOFFICE/core-fonts.git
 cp deb_build và package_builder-custom.sh vào ~/onlyoffice-mbf-9.1.0
 chmod u+x -R ~/onlyoffice-mbf-9.1.0
 
