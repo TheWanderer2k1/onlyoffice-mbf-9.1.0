@@ -8,6 +8,7 @@ git clone https://github.com/ONLYOFFICE/sdkjs.git
 git clone https://github.com/ONLYOFFICE/web-apps.git
 git clone https://github.com/ONLYOFFICE/dictionaries.git
 git clone https://github.com/ONLYOFFICE/core-fonts.git
+git clone https://github.com/ONLYOFFICE/document-server-integration.git
 cp deb_build và package_builder-custom.sh vào ~/onlyoffice-mbf-9.1.0
 chmod u+x -R ~/onlyoffice-mbf-9.1.0
 
@@ -21,7 +22,18 @@ cd build_tools
 mkdir /root/onlyoffice-mbf-9.1.0/build_tools/out
 docker build --tag onlyoffice-document-editors-builder .
 
-docker run -d --name onlyoffice-document-editors-builder -e PRODUCT_VERSION=9.1.0 -e BUILD_NUMBER=31 -e NODE_ENV='production' -v /root/onlyoffice-mbf-9.1.0/build_tools/out:/build_tools/out -v /root/onlyoffice-mbf-9.1.0/core:/core -v /root/onlyoffice-mbf-9.1.0/sdkjs:/sdkjs -v /root/onlyoffice-mbf-9.1.0/server:/server -v /root/onlyoffice-mbf-9.1.0/web-apps:/web-apps onlyoffice-document-editors-builder sleep infinity
+docker run -d --name onlyoffice-document-editors-builder \
+    -e PRODUCT_VERSION=9.1.0 \
+    -e BUILD_NUMBER=31 \
+    -e NODE_ENV='production' \
+    -v /root/onlyoffice-mbf-9.1.0/build_tools/out:/build_tools/out \
+    -v /root/onlyoffice-mbf-9.1.0/core:/core \
+    -v /root/onlyoffice-mbf-9.1.0/sdkjs:/sdkjs \
+    -v /root/onlyoffice-mbf-9.1.0/server:/server \
+    -v /root/onlyoffice-mbf-9.1.0/web-apps:/web-apps \
+    -v /root/onlyoffice-mbf-9.1.0/dictionaries:/dictionaries \
+    -v /root/onlyoffice-mbf-9.1.0/core-fonts:/core-fonts \
+    onlyoffice-document-editors-builder sleep infinity
 
 docker exec -it onlyoffice-document-editors-builder /bin/bash -c '\
     cd tools/linux && \
