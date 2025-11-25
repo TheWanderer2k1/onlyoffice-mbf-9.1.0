@@ -1,3 +1,6 @@
 [submodule "server"]
 	path = server
 	url = https://github.com/TheWanderer2k1/server-onlyoffice-mbf.git
+[submodule "web-apps"]
+	path = web-apps
+	url = https://github.com/TheWanderer2k1/web-apps-onlyoffice-mbf.git
