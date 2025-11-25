@@ -9,6 +9,7 @@ git clone https://github.com/ONLYOFFICE/web-apps.git
 git clone https://github.com/ONLYOFFICE/dictionaries.git
 git clone https://github.com/ONLYOFFICE/core-fonts.git
 git clone https://github.com/ONLYOFFICE/document-server-integration.git
+git clone https://github.com/ONLYOFFICE/document-formats.git
 cp deb_build và package_builder-custom.sh vào ~/onlyoffice-mbf-9.1.0
 chmod u+x -R ~/onlyoffice-mbf-9.1.0
 
@@ -33,6 +34,7 @@ docker run -d --name onlyoffice-document-editors-builder \
     -v /root/onlyoffice-mbf-9.1.0/web-apps:/web-apps \
     -v /root/onlyoffice-mbf-9.1.0/dictionaries:/dictionaries \
     -v /root/onlyoffice-mbf-9.1.0/core-fonts:/core-fonts \
+    -v /root/onlyoffice-mbf-9.1.0/document-server-integration:/document-server-integration \
     onlyoffice-document-editors-builder sleep infinity
 
 docker exec -it onlyoffice-document-editors-builder /bin/bash -c '\
