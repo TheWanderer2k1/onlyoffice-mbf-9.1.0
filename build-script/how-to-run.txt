@@ -5,7 +5,6 @@ cd onlyoffice-mbf-9.1.0
 git pull
 git clone https://github.com/ONLYOFFICE/core.git
 git clone https://github.com/ONLYOFFICE/sdkjs.git
-git clone https://github.com/ONLYOFFICE/web-apps.git
 git clone https://github.com/ONLYOFFICE/dictionaries.git
 git clone https://github.com/ONLYOFFICE/core-fonts.git
 git clone https://github.com/ONLYOFFICE/document-server-integration.git
@@ -35,6 +34,7 @@ docker run -d --name onlyoffice-document-editors-builder \
     -v /root/onlyoffice-mbf-9.1.0/dictionaries:/dictionaries \
     -v /root/onlyoffice-mbf-9.1.0/core-fonts:/core-fonts \
     -v /root/onlyoffice-mbf-9.1.0/document-server-integration:/document-server-integration \
+    -v /root/onlyoffice-mbf-9.1.0/document-formats:/document-formats \
     onlyoffice-document-editors-builder sleep infinity
 
 docker exec -it onlyoffice-document-editors-builder /bin/bash -c '\
