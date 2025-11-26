@@ -94,8 +94,9 @@ if config.check_option("module", "desktop"):
     base.set_env("DESKTOP_URL_INSTALL_CHANNEL", "https://download.onlyoffice.com/install/desktop/editors/windows/distrib/onlyoffice/<file>")
     base.set_env("DESKTOP_URL_INSTALL_DEV_CHANNEL", "https://download.onlyoffice.com/install/desktop/editors/windows/onlyoffice/onlineinstallerdev/<file>")
 
+# ko build sln (c++ project)
 # build
-build_sln.make()
+# build_sln.make()
 
 # js
 build_js.make()

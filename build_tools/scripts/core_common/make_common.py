@@ -40,7 +40,7 @@ def make():
       if base.is_dir(toolchain):
         check_android_ndk_macos_arm(toolchain + "/prebuilt")
 
-  boost.make()
+  # boost.make() # ko build boost c++ cho qt
   cef.make()
   icu.make()
   openssl.make()

@@ -69,12 +69,15 @@ if not base.is_file("./node_js_setup_14.x"):
   print("install dependencies...")
   deps.install_deps()
 
+# HA: do install qt here, else build process gonna be LONG~
 if not base.is_dir("./qt_build"):
   print("install qt...")
   if base.get_env("DO_NOT_USE_PREBUILD_QT") == "1":
-    install_qt()
+    # install_qt()
+    print("méo build")
   else:
-    install_qt_prebuild()
+    # install_qt_prebuild()
+    print("méo build")
 
 branch = get_branch_name("../..")
 
@@ -102,7 +105,7 @@ print("---------------------------------------------")
 
 modules = " ".join(array_modules)
 if "" == modules:
-  modules = "desktop builder server"
+  modules = "server"
 
 print("---------------------------------------------")
 print("build modules: " + modules)
