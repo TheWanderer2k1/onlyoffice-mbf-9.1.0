@@ -178,13 +178,20 @@ build_oo_binaries() {
     -v $(pwd)/../sdkjs:/sdkjs \
     -v $(pwd)/../server:/server \
     -v $(pwd)/../web-apps:/web-apps \
+    -v $(pwd)/../dictionaries:/dictionaries \
+    -v $(pwd)/../core-fonts:/core-fonts \
+    -v $(pwd)/../document-server-integration:/document-server-integration \
+    -v $(pwd)/../document-formats:/document-formats \
+    -v $(pwd)/../document-templates:/document-templates \
+    -v $(pwd)/../sdkjs-forms:/sdkjs-forms \
     onlyoffice-document-editors-builder sleep infinity
   # update bằng 0 nếu ko sẽ ko dùng custom code đc
   docker exec -it onlyoffice-document-editors-builder /bin/bash -c "\
     python3 tools/linux/automate.py \
         --update=0 \
+        --no-apps=1 \
         --branch=tags/${_UPSTREAM_TAG} \
-        --module=\"builder server\""
+        --module=\"server\""
   cd ..
 
 }

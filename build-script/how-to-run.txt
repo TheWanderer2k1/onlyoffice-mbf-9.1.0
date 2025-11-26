@@ -9,6 +9,8 @@ git clone https://github.com/ONLYOFFICE/dictionaries.git
 git clone https://github.com/ONLYOFFICE/core-fonts.git
 git clone https://github.com/ONLYOFFICE/document-server-integration.git
 git clone https://github.com/ONLYOFFICE/document-formats.git
+git clone https://github.com/ONLYOFFICE/document-templates.git
+git clone https://github.com/ONLYOFFICE/sdkjs-forms.git
 cp deb_build và package_builder-custom.sh vào ~/onlyoffice-mbf-9.1.0
 chmod u+x -R ~/onlyoffice-mbf-9.1.0
 
@@ -35,11 +37,13 @@ docker run -d --name onlyoffice-document-editors-builder \
     -v /root/onlyoffice-mbf-9.1.0/core-fonts:/core-fonts \
     -v /root/onlyoffice-mbf-9.1.0/document-server-integration:/document-server-integration \
     -v /root/onlyoffice-mbf-9.1.0/document-formats:/document-formats \
+    -v /root/onlyoffice-mbf-9.1.0/document-templates:/document-templates \
+    -v /root/onlyoffice-mbf-9.1.0/sdkjs-forms:/sdkjs-forms \
     onlyoffice-document-editors-builder sleep infinity
 
 docker exec -it onlyoffice-document-editors-builder /bin/bash -c '\
     cd tools/linux && \
-    python3 ./automate.py --branch=tags/v9.1.0.31 --update=0 --module="builder server"'
+    python3 ./automate.py --branch=tags/v9.1.0.31 --update=0 --no-apps=1 --module="server"'
 
 cd deb_build
 docker build --tag onlyoffice-deb-builder . -f Dockerfile-manual-debian-11
